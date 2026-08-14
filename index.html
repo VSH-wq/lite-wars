@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Frontline Arena</title>
+<link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+<!-- AUTH SCREEN -->
+<section id="screen-auth" class="screen">
+  <div class="panel panel-auth">
+    <h1 class="brand">FRONTLINE<span>ARENA</span></h1>
+    <p class="tagline">Pick a machine. Join the fight. No lobby, no waiting.</p>
+
+    <div class="tabs">
+      <button class="tab active" data-tab="login">LOG IN</button>
+      <button class="tab" data-tab="register">REGISTER</button>
+    </div>
+
+    <form id="form-login" class="auth-form">
+      <label>USERNAME
+        <input type="text" id="login-username" autocomplete="username" required maxlength="20">
+      </label>
+      <label>PASSWORD
+        <input type="password" id="login-password" autocomplete="current-password" required maxlength="128">
+      </label>
+      <button type="submit" class="btn btn-primary">ENTER THE FIELD</button>
+    </form>
+
+    <form id="form-register" class="auth-form hidden">
+      <label>USERNAME
+        <input type="text" id="register-username" autocomplete="username" required minlength="3" maxlength="20">
+      </label>
+      <label>PASSWORD
+        <input type="password" id="register-password" autocomplete="new-password" required minlength="4" maxlength="128">
+      </label>
+      <button type="submit" class="btn btn-primary">CREATE CALLSIGN</button>
+    </form>
+
+    <p id="auth-error" class="error-text hidden"></p>
+    <p class="footnote">6 war machines &middot; 2 fronts &middot; 2 maps &middot; 0 cost</p>
+  </div>
+</section>
+
+<!-- LOBBY SCREEN -->
+<section id="screen-lobby" class="screen hidden">
+  <header class="lobby-header">
+    <div class="lobby-identity">
+      <div>
+        <span class="lobby-welcome">CALLSIGN</span>
+        <span id="lobby-username" class="lobby-username"></span>
+      </div>
+      <div class="level-badge">
+        <span class="level-badge-label">LVL <b id="lobby-level">1</b></span>
+        <div class="level-progress-track"><div id="lobby-level-fill" class="level-progress-fill"></div></div>
+        <span id="lobby-exp-label" class="level-exp-label"></span>
+      </div>
+    </div>
+    <div class="lobby-stats">
+      <span>K <b id="lobby-kills">0</b></span>
+      <span>D <b id="lobby-deaths">0</b></span>
+    </div>
+    <button id="btn-leaderboard" class="btn btn-ghost">LEADERBOARD</button>
+    <button id="btn-logout" class="btn btn-ghost">LOG OUT</button>
+  </header>
+
+  <div class="lobby-body">
+    <h2 class="section-title">SELECT WAR MACHINE</h2>
+    <div id="vehicle-grid" class="vehicle-grid"></div>
+
+    <h2 class="section-title">SELECT FRONT</h2>
+    <div class="mode-grid">
+      <button class="mode-card" data-mode="free">
+        <span class="mode-name">FREE PLAY</span>
+        <span class="mode-desc">Every machine for itself. No queue, no matchmaking &mdash; join and fight.</span>
+      </button>
+      <button class="mode-card" data-mode="team">
+        <span class="mode-name">TEAM WAR</span>
+        <span class="mode-desc">Red vs Blue, auto-balanced. The war runs forever.</span>
+      </button>
+    </div>
+
+    <button id="btn-deploy" class="btn btn-primary btn-deploy" disabled>DEPLOY</button>
+    <p id="lobby-hint" class="hint">Pick a machine and a front to deploy.</p>
+  </div>
+</section>
+
+<!-- LEADERBOARD SCREEN -->
+<section id="screen-leaderboard" class="screen hidden">
+  <div class="panel leaderboard-panel">
+    <div class="leaderboard-header">
+      <h2 class="section-title leaderboard-title">LEADERBOARD</h2>
+      <button id="btn-leaderboard-back" class="btn btn-ghost">BACK</button>
+    </div>
+    <div id="leaderboard-tabs" class="leaderboard-tabs"></div>
+    <div id="leaderboard-list" class="leaderboard-list"></div>
+  </div>
+</section>
+
+<!-- GAME SCREEN -->
+<section id="screen-game" class="screen hidden">
+  <canvas id="game-canvas"></canvas>
+  <div class="hud">
+    <div class="hud-top-left" id="hud-mode"></div>
+    <div class="hud-top-right" id="hud-killfeed"></div>
+
+    <button id="btn-leave" class="btn btn-ghost btn-leave">LEAVE FIELD</button>
+
+    <div class="hud-bottom-left">
+      <div class="health-bar"><div id="health-fill" class="health-fill"></div></div>
+      <span id="health-label" class="health-label"></span>
+    </div>
+
+    <canvas id="minimap" class="minimap" width="160" height="160"></canvas>
+
+    <div id="respawn-overlay" class="respawn-overlay hidden">
+      <span>DESTROYED</span>
+      <span id="respawn-timer"></span>
+    </div>
+
+    <div id="levelup-toast" class="levelup-toast hidden">
+      <span>LEVEL UP</span>
+      <span id="levelup-toast-level"></span>
+    </div>
+
+    <div id="connection-banner" class="connection-banner hidden"></div>
+  </div>
+</section>
+
+<script src="/static/js/api.js"></script>
+<script src="/static/js/network.js"></script>
+<script src="/static/js/render.js"></script>
+<script src="/static/js/app.js"></script>
+</body>
+</html>
